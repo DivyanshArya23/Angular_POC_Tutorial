@@ -20,13 +20,13 @@ export class LoginComponent implements OnInit {
   loginUser(event){
     event.preventDefault();
     const target      = event.target;
-    const username    = target.querySelector('#username').value;
+    const email       = target.querySelector('#email').value;
     const password    = target.querySelector('#password').value;
-    console.log(username, password);
-    this.Auth.getUserDetails(username, password).subscribe(data => {
+    // console.log(username, password);
+    this.Auth.getUserDetails(email, password).subscribe(data => {
       if (data.success){
         // redirect to admin
-        this.router.navigate(['admin']);
+        this.router.navigate(['dashboard']);
         this.Auth.setLoggedIn(true);
       } else {
         window.alert(data.message);

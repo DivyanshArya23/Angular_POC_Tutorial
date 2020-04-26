@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
 
     const errors      = [];
     const target      = event.target;
-    const email    = target.querySelector('#username').value;
+    const email    = target.querySelector('#email').value;
     const password    = target.querySelector('#password').value;
     const cpassword   = target.querySelector('#cpassword').value;
 
