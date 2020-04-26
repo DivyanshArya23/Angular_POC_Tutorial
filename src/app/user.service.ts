@@ -7,8 +7,12 @@ interface MyData {
   success: boolean;
 }
 
-interface IsLoggedIn{
+interface IsLoggedIn {
   status: boolean;
+}
+
+interface LogoutStatus {
+  success: boolean;
 }
 @Injectable({
   providedIn: 'root'
@@ -23,5 +27,9 @@ export class UserService {
 
   isLoggedIn(): Observable<IsLoggedIn>{
     return this.http.get<IsLoggedIn>('/api/isloggedin.php');
+  }
+
+  logout(){
+    return this.http.get<LogoutStatus>('/api/logout.php');
   }
 }
