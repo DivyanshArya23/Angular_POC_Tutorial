@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
 
     // more validation
 
-    if (errors.length > 0){
+    if (errors.length === 0){
       this.auth.registerUser(username, password).subscribe(data => {
         console.log(data);
         if (data.success){
