@@ -35,9 +35,9 @@ export class AuthService {
     });
   }
 
-  registerUser(username, password){
+  registerUser(email, password){
     return this.http.post<RegisterResponse>('/api/register', {
-      username,
+      email,
       password
     });
   }
