@@ -1,8 +1,15 @@
 const   express     =   require("express"),
         app         =   express(),
+        session     = require("express-session"),
         mongoose    = require("mongoose"),
         User        = require('./models/user'),
         bodyParser  = require("body-parser");
+
+app.use(session({
+  secret:'sdfghjkldfgdfvcsfdvffdddvds',
+  saveUninitialized: true,
+  resave: false
+}));
 
 app.use(bodyParser.json());
 mongoose.Promise= Promise;
@@ -23,9 +30,12 @@ app.post('/api/login',async (req,res) => {
       message: 'Incorrect Details'
     });
   } else {
-      res.json({
-        success: true
-      });
+    res.json({
+      success: true
+    });
+    req.session.user = email;
+    req.session.save();
+    // console.log(req.session.user)
     // console.log('logging you in');
   }
 });
@@ -58,7 +68,11 @@ app.post('/api/register',async (req,res) => {
   });
 });
 
+app.get("/api/data",(req, res) => {
+  console.log(req.session.user)
 
+  res.send("User is =>" + req.session.user);
+})
 // ============================================================
 app.listen(1234, function(){
   console.log('Server started at 1234');
