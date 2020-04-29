@@ -1,4 +1,9 @@
-Quote:{{quote}}
-Email:{{email}}
-
-<a routerLink="/logout">Logout</a>
+<div class="ng-container container text-center t-5" id="message">
+  <p>Quote:{{quote}}</p>
+  <p>Email:{{email}}</p>
+  <a routerLink="/logout">Logout</a>
+  <div id="controls">
+    <input type="text" value="{{quote}}" id="myQuote">
+    <input type="button" value="Update Quote" (click)=updateQuote($event)>
+  </div>
+</div>

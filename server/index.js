@@ -18,6 +18,21 @@ mongoose.connect('mongodb://localhost:27017/angularloginapp',{ useNewUrlParser: 
 
 // ============================================================
 
+app.post('/api/quote',async (req,res) => {
+  const user = await User.findOne({email:req.session.email});
+  if(!user){
+    res.json({
+      success: false,
+      message: 'Invalid User'
+    });
+    return
+  }
+  await User.update({email: req.session.email}, {$set:{quote: req.body.value}});
+  res.json({
+    success: true
+  });
+});
+
 // login route
 app.post('/api/login',async (req,res) => {
   const {email, password} = req.body;

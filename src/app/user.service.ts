@@ -15,6 +15,10 @@ interface IsLoggedIn {
 interface LogoutStatus {
   success: boolean;
 }
+
+interface QouteStatus {
+  success: boolean;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -32,5 +36,11 @@ export class UserService {
 
   logout(){
     return this.http.get<LogoutStatus>('/api/logout');
+  }
+
+  updateQuote(value){
+    return this.http.post<QouteStatus>('/api/quote', {
+      value
+    });
   }
 }

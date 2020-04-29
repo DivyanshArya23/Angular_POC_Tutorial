@@ -25,4 +25,14 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  updateQuote(event){
+    const value = (( event.target as HTMLElement).parentNode.querySelector('#myQuote')  as HTMLInputElement).value ;
+    this.user.updateQuote(value).subscribe(data => {
+      if (data.success){
+        alert('quote updated');
+      } else {
+        alert('some problem occurred');
+      }
+    });
+  }
 }
