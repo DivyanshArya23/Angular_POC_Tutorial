@@ -33,11 +33,17 @@ app.post('/api/login',async (req,res) => {
     res.json({
       success: true
     });
-    req.session.user = email;
+    req.session.email = email;
     req.session.save();
     // console.log(req.session.user)
     // console.log('logging you in');
   }
+});
+
+app.get("/api/isloggedin",(req,res) => {
+  res.json({
+    status: !!req.session.email
+  })
 });
 
 // register route
@@ -52,7 +58,6 @@ app.post('/api/register',async (req,res) => {
       message: 'Email already in use'
     });
     console.log(existingUser);
-
     return;
   }
 
@@ -68,11 +73,31 @@ app.post('/api/register',async (req,res) => {
   });
 });
 
-app.get("/api/data",(req, res) => {
-  console.log(req.session.user)
+app.get("/api/data",async (req, res) => {
+  const user = await User.findOne({email:req.session.email});
 
-  res.send("User is =>" + req.session.user);
-})
+  if(!user){
+    res.json({
+      status : false,
+      message : 'User was Deleted'
+    });
+    return
+  }
+
+  res.json({
+    status: true,
+    email : req.session.email,
+    quote : user.quote
+  });
+});
+
+app.get('/api/logout',(req,res) => {
+  req.session.destroy();
+  res.json({
+    success: true
+  });
+});
+
 // ============================================================
 app.listen(1234, function(){
   console.log('Server started at 1234');

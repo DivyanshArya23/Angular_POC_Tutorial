@@ -19,12 +19,13 @@ export class RegisterComponent implements OnInit {
 
     const errors      = [];
     const target      = event.target;
-    const email    = target.querySelector('#email').value;
+    const email       = target.querySelector('#email').value;
     const password    = target.querySelector('#password').value;
     const cpassword   = target.querySelector('#cpassword').value;
 
     if (cpassword !== password){
       errors.push ( 'Passwords do not match' );
+      window.alert(errors);
     }
 
     // more validation
@@ -33,6 +34,8 @@ export class RegisterComponent implements OnInit {
       this.auth.registerUser(email, password).subscribe(data => {
         if (data.success){
           this.router.navigate(['dashboard']);
+        } else {
+          window.alert(data.message );
         }
       });
     }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,11 +9,20 @@ import { UserService } from './../user.service';
 })
 export class DashboardComponent implements OnInit {
 
-  message = 'Loading....';
+  quote = 'Loading your personal quote';
+  email = 'Getiing your Email...';
 
-  constructor() { }
+  constructor(private user: UserService, private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
+    this.user.getData().subscribe(data => {
+      if (data.status){
+        this.quote = data.quote;
+        this.email = data.email;
+      } else {
+        this.router.navigate(['logout']);
+      }
+    });
   }
 
 }
