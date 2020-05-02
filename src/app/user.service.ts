@@ -1,3 +1,4 @@
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -24,7 +25,8 @@ interface QouteStatus {
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private store: Store<any>) { }
 
   getData(){
     return this.http.get<MyData>('/api/data');
@@ -42,5 +44,9 @@ export class UserService {
     return this.http.post<QouteStatus>('/api/quote', {
       value
     });
+  }
+
+  getAllState(){
+    return this.store.select('appReducer');
   }
 }

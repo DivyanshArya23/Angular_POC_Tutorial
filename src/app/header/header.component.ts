@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-header',
@@ -8,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   greetMessage = 'Hello Guest';
   logout = true;
-  constructor() { }
+  constructor(private user: UserService) { }
 
   ngOnInit(): void {
+    this.user.getAllState().subscribe(state => {
+      this.greetMessage = state.login ? 'Hello' + state.user : 'Hello Guest';
+    });
   }
 }
