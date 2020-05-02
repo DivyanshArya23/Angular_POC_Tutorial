@@ -15,6 +15,8 @@ import { UserService } from './user.service';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
+import { HeaderComponent } from './header/header.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { RegisterComponent } from './register/register.component';
     HomeComponent,
     LogoutComponent,
     DashboardComponent,
-    RegisterComponent
+    RegisterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
